@@ -8,7 +8,7 @@ public class InstrumentSystem :ScriptableObject
     [Tooltip("Image of the instrument")]
     public Sprite imgInstrument;
     [Tooltip("Main text of the instrument")]
-    public string mainText;
+    public string mainText1,mainText2,mainText3;
     [Tooltip("Caption image of the instrument")]
     public string txtUnderImage;
 }

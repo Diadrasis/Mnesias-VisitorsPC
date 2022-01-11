@@ -674,7 +674,7 @@ imgContainerStringInstrument.GetComponent<Image>().sprite = imgHelys;
                 OpenExtraInfoImage();
                 txtInstrument.text = "> " + instrument[i].nameInstrument;
                 imgContainer.GetComponent<Image>().sprite = instrument[i].imgInstrument;
-                txtMainTextInstrument.text = instrument[i].mainText;
+                txtMainTextInstrument.text = instrument[i].mainText1 +"\n\n"+instrument[i].mainText2+ "\n\n\n" + instrument[i].mainText3;
                 txtCaptionInstrument.text = instrument[i].txtUnderImage;
 #if PLATFORM_IOS || PLATFORM_ANDROID
                 ms.txtTitleInstrument.text = instrument[i].nameInstrument;
@@ -722,7 +722,7 @@ imgContainerStringInstrument.GetComponent<Image>().sprite = imgHelys;
                 OpenExtraInfoImage();
                 txtInstrument.text = "> " + instrument[i].nameInstrument;
                 imgContainer.GetComponent<Image>().sprite = instrument[i].imgInstrument;
-                txtMainTextInstrument.text = instrument[i].mainText;
+                txtMainTextInstrument.text = instrument[i].mainText1 + "\n\n" + instrument[i].mainText2 + "\n\n\n" + instrument[i].mainText3;
                 txtCaptionInstrument.text = instrument[i].txtUnderImage;
 #if PLATFORM_IOS || PLATFORM_ANDROID
                 ms.txtTitleInstrument.text = instrument[i].nameInstrument;
@@ -775,7 +775,7 @@ imgContainerStringInstrument.GetComponent<Image>().sprite = imgHelys;
                 OpenExtraInfoImage();
                 txtInstrument.text = "> " + instrument[i].nameInstrument;
                 imgContainer.GetComponent<Image>().sprite = instrument[i].imgInstrument;
-                txtMainTextInstrument.text = instrument[i].mainText;
+                txtMainTextInstrument.text = instrument[i].mainText1 + "\n\n" + instrument[i].mainText2 + "\n\n\n" + instrument[i].mainText3;
                 txtCaptionInstrument.text = instrument[i].txtUnderImage;
 
 #if PLATFORM_IOS || PLATFORM_ANDROID
@@ -822,7 +822,7 @@ imgContainerStringInstrument.GetComponent<Image>().sprite = imgHelys;
                 OpenExtraInfoImage();
                 txtInstrument.text = "> " + instrument[i].nameInstrument;
                 imgContainer.GetComponent<Image>().sprite = instrument[i].imgInstrument;
-                txtMainTextInstrument.text = instrument[i].mainText;
+                txtMainTextInstrument.text = instrument[i].mainText1 + "\n\n" + instrument[i].mainText2 + "\n\n\n" + instrument[i].mainText3;
                 txtCaptionInstrument.text = instrument[i].txtUnderImage;
 #if PLATFORM_IOS || PLATFORM_ANDROID
                 ms.txtTitleInstrument.text = instrument[i].nameInstrument;
@@ -866,7 +866,7 @@ imgContainerStringInstrument.GetComponent<Image>().sprite = imgHelys;
                 OpenExtraInfoImage();
                 txtInstrument.text = "> " + instrument[i].nameInstrument;
                 imgContainer.GetComponent<Image>().sprite = instrument[i].imgInstrument;
-                txtMainTextInstrument.text = instrument[i].mainText;
+                txtMainTextInstrument.text = instrument[i].mainText1 + "\n\n" + instrument[i].mainText2 + "\n\n\n" + instrument[i].mainText3;
                 txtCaptionInstrument.text = instrument[i].txtUnderImage;
 #if PLATFORM_IOS || PLATFORM_ANDROID
                 ms.txtTitleInstrument.text = instrument[i].nameInstrument;
@@ -991,7 +991,7 @@ imgContainerStringInstrument.GetComponent<Image>().sprite = imgHelys;
             {
                 txtTitle.text = "Τρισδιάστατη απεικόνηση Χέλυς";
 
-                txtMain.text = "Σε αυτην την οθόνη βλέπουμε την 3D απεικόνηση της Λύρας. Μπορούμε να δούμε το όργανο με την βοήθεια του ποντικιού μας και πατώντας το <b>αριστερό κλικ</b> παρατεταμένα" +
+                txtMain.text = "Σε αυτην την οθόνη βλέπουμε την 3D απεικόνηση της Χέλυς. Μπορούμε να δούμε το όργανο με την βοήθεια του ποντικιού μας και πατώντας το <b>αριστερό κλικ</b> παρατεταμένα" +
                     " περιστρέφουμε το όργανο. Επίσης με το <b>δεξί κλικ</b>, μπορούμε να μετακινήσουμε την κάμερά μας δεξιά ή αριστερά απο το όργανο και μετά να του κάνουμε περιστροφή" +
                     " άμα θέλουμε. Τέλος, με την <b>ροδέλα</b> μας κάνουμε zoom in ή zoom out στο όργανο.";
 
