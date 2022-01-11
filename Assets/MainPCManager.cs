@@ -470,7 +470,7 @@ imgContainerStringInstrument.GetComponent<Image>().sprite = imgHelys;
                 LyraIns3D.SetActive(false);
             }
 
-            Debug.Log("1. isDafnis: " + isDafnis + " Megara: " + isMegara + " Piraeus; " + isPiraeus);
+            //Debug.Log("1. isDafnis: " + isDafnis + " Megara: " + isMegara + " Piraeus; " + isPiraeus);
         }
         else if (pnlPiraeusInstrument.activeSelf)
         {
@@ -489,7 +489,7 @@ imgContainerStringInstrument.GetComponent<Image>().sprite = imgHelys;
                 txtInstrument.gameObject.SetActive(false);
                 txtMuseumName.text = "Επιλογη Μουσειου";
             }
-            Debug.Log("2");
+            //Debug.Log("2");
         }
         else if (pnlMegaraInstrument.activeSelf)
         {
@@ -509,7 +509,7 @@ imgContainerStringInstrument.GetComponent<Image>().sprite = imgHelys;
                 txtMuseumName.text = "Επιλογη Μουσειου";
             }
 
-            Debug.Log("4");
+            //Debug.Log("4");
         }
         else if (prefab3Dins.activeSelf)
         {
@@ -517,6 +517,7 @@ imgContainerStringInstrument.GetComponent<Image>().sprite = imgHelys;
             {
                 pnlExtraInfo.SetActive(false);
                 prefab3Dins.SetActive(true);
+                imgMnesiasBack.gameObject.SetActive(false);
             }
             else
             {
@@ -887,14 +888,14 @@ imgContainerStringInstrument.GetComponent<Image>().sprite = imgHelys;
         if (pnlMuseumScreen)
         {
             txtTitle.text = "Επιλογή Μουσείου";
-            txtMain.text = "Σε αυτην την οθόνη επιλέγετε το Μουσείο." +
+            txtMain.text = "Σε αυτην την οθόνη επιλέγετε το Μουσείο " +
                 "που ψάχνετε";
         }
         if (pnlPiraeusInstrument.activeSelf || pnlMegaraInstrument.activeSelf)
         {
 
             txtTitle.text = "Επιλογή Οργάνου";
-            txtMain.text = "Σε αυτην την οθόνη επιλέγετε το μουσικό όργανο που θέλετε. Με την επιλογή <b>γρανάζι</b> και την επιλογή <b> Περισσότερες πληροφορίες</b> μπορείτε να δείτε και κάποια βίνετο σχετικά με το Μουσείο που επιλέξατε.";
+            txtMain.text = "Σε αυτην την οθόνη επιλέγετε το μουσικό όργανο που θέλετε. Με την επιλογή <b>των τριών τελειών</b> μπορείτε να δείτε και κάποια βίνετο σχετικά με το Μουσείο που επιλέξατε.";
 
         }
         if (pnlInstrumentMiddleScreen.activeSelf)
@@ -907,22 +908,22 @@ imgContainerStringInstrument.GetComponent<Image>().sprite = imgHelys;
             else if (!(isDafnis || isTrigono || isLyra) && (isMegarwnL64 || isMegarwnH64) && !(isMegarwnH65 || isMegarwnL65))
             {
                 txtTitle.text = btnAulosMegara64.GetComponentInChildren<TextMeshProUGUI>().text;
-                Debug.Log("Meg64 " + isTrigono);
+                //Debug.Log("Meg64 " + isTrigono);
             }
             else if (!(isDafnis || isTrigono || isLyra) && !(isMegarwnL64 || isMegarwnH64) && (isMegarwnH65 || isMegarwnL65))
             {
                 txtTitle.text = btnAulosMegara65.GetComponentInChildren<TextMeshProUGUI>().text;
-                Debug.Log("Meg65 " + isTrigono);
+                //Debug.Log("Meg65 " + isTrigono);
             }
             else if (isTrigono && !(isDafnis || isLyra || isMegarwnH64 || isMegarwnH65 || isMegarwnL64 || isMegarwnL65))
             {
                 txtTitle.text = btnTrigono.GetComponentInChildren<TextMeshProUGUI>().text;
-                Debug.Log("Trigono");
+                //Debug.Log("Trigono");
             }
             else if (isLyra && !(isDafnis || isTrigono || isMegarwnH64 || isMegarwnH65 || isMegarwnL64 || isMegarwnL65))
             {
                 txtTitle.text = btnLyra.GetComponentInChildren<TextMeshProUGUI>().text;
-                Debug.Log("Lyra");
+                //Debug.Log("Lyra");
             }
 
 
@@ -954,9 +955,9 @@ imgContainerStringInstrument.GetComponent<Image>().sprite = imgHelys;
             }
 
             txtMain.text = "Σε αυτην την οθόνη μπορείτε να επεξεργαστείτε κάποιες παραμέτρους σχετικά με το μουσικό όργανο που επιλέξαμε.\n \n" +
-                "Πατώντας το κουμπί <b>Τροποποίηση</b> μπορείτε να επιλέξετε μια από τις τιμές που εμφανίζονται στις εκάστοτε επιλογές. " +
+                "Πατώντας το κουμπί <b>Τροποποίηση</b> μπορείτε να επιλέξετε μια από τις τιμές των παραμέτρων που μπορείτε να αλλάξετε. " +
                 "Μόλις επιλέξετε την τιμή της αρεσκείας, πατήστε το κουμπί <b> Καταχώρηση</b> για να φορτώσετε τους αντίστοιχους ήχους. " +
-                "Σε περίπτωση μη αποδεκτού συνδυασμού τιμών, εμφανίζεται κατάλληλο μήνυμα.\n \n Πατώντας το κουμπί με τις <b>τρείς τελείες</b> μπορείτε να δείτε κάποιες έξτρα επιλογές.";
+                "Στην περίπτωση αλλαγής των τονικών οπών, θα πρέπει να επιλέξετε μια από τις στήλες και μετά πάλι το κουμπί Καταχώρηση.\n \n Πατώντας το κουμπί με τις <b>τρείς τελείες</b> μπορείτε να δείτε κάποιες έξτρα επιλογές.";
         }
         if (prefab3Dins.activeSelf && !(pnlInstrumentMiddleScreen.activeSelf || pnlPiraeusInstrument.activeSelf || pnlMegaraInstrument.activeSelf || pnlMainWindInstrument.activeSelf || pnlMainStringInstrument.activeSelf || pnlMuseumScreen.activeSelf))
         {
@@ -990,7 +991,7 @@ imgContainerStringInstrument.GetComponent<Image>().sprite = imgHelys;
             {
                 txtTitle.text = "Τρισδιάστατη απεικόνηση Χέλυς";
 
-                txtMain.text = "Σε αυτην την οθόνη βλέπουμε την 3D απεικόνηση του τριγώνου. Μπορούμε να δούμε το όργανο με την βοήθεια του ποντικιού μας και πατώντας το <b>αριστερό κλικ</b> παρατεταμένα" +
+                txtMain.text = "Σε αυτην την οθόνη βλέπουμε την 3D απεικόνηση της Λύρας. Μπορούμε να δούμε το όργανο με την βοήθεια του ποντικιού μας και πατώντας το <b>αριστερό κλικ</b> παρατεταμένα" +
                     " περιστρέφουμε το όργανο. Επίσης με το <b>δεξί κλικ</b>, μπορούμε να μετακινήσουμε την κάμερά μας δεξιά ή αριστερά απο το όργανο και μετά να του κάνουμε περιστροφή" +
                     " άμα θέλουμε. Τέλος, με την <b>ροδέλα</b> μας κάνουμε zoom in ή zoom out στο όργανο.";
 
@@ -1005,7 +1006,7 @@ imgContainerStringInstrument.GetComponent<Image>().sprite = imgHelys;
         if (pnlExtraInfo.activeSelf)
         {
             txtTitle.text = "Video Μουσείων και Μουσικών οργάνων";
-            txtMain.text = "Σε αυτην την οθόνη βλέπουμε κάποια έξτρα video σχετικά με το Μουσείο ή το αντίστοιχο όργανο. Σε περίπτωση buffering του video, καλό είναι με το <b>Χ</b> να κλείσουμε το βίντεο" +
+            txtMain.text = "Σε αυτην την οθόνη βλέπουμε κάποια έξτρα video σχετικά με το Μουσείο ή το αντίστοιχο όργανο. Σε περίπτωση που αργεί η αναπαραγωγή του video, καλό είναι με το <b>Χ</b> να κλείσουμε το βίντεο" +
                 "και να το ξανα επιλέξουμε.";
         }
 
