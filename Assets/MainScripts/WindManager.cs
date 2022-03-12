@@ -32,6 +32,7 @@ public class WindManager : MonoBehaviour
     public Button pnlChoose;
     public GameObject pnlAulosScreen; //panel with Aulos settings and info
     public TextMeshProUGUI txtChoiceValue;
+    public GameObject txtChoiceValueParent;
     public GameObject txtBoreValueParent;
     public TextMeshProUGUI txtBoreValue;
     public GameObject txtMouthpieceValueParent;
@@ -58,6 +59,7 @@ public class WindManager : MonoBehaviour
     public TMP_InputField inputValueNumOfHoles;
     public TMP_InputField[] inputValueDistanceHole;
     public TMP_InputField[] inputValueDiameterHole;
+    public GameObject[] btnSounds;
     public ToggleGroup group;
     
     /*<summary>
@@ -96,8 +98,9 @@ public class WindManager : MonoBehaviour
 
         info = gameObject.AddComponent<InfoCSV>();
         Load(mainfile);
-        txtBoreValueParent.gameObject.SetActive(false);
-        txtMouthpieceValueParent.gameObject.SetActive(false);
+        txtBoreValueParent.SetActive(false);
+        txtMouthpieceValueParent.SetActive(false);
+        txtChoiceValueParent.SetActive(false);
         SubscribeToButtons();
     }
     #endregion
@@ -237,6 +240,8 @@ public class WindManager : MonoBehaviour
             inputValueDistanceHole[k].gameObject.SetActive(true);
 
         }
+
+        foreach (GameObject goSounds in btnSounds) goSounds.SetActive(false);
         if (mpm.hasSelected) pnlChooseType.SetActive(false);
         if (mpm.pnlExtraMenu.activeSelf) mpm.CloseMenuPanel();
     }
@@ -389,6 +394,7 @@ public class WindManager : MonoBehaviour
         if (mpm.pnlExtraMenu.activeSelf) mpm.CloseMenuPanel();
         mpm.pnlBottom.SetActive(true);
         pnlChooseType.SetActive(false);
+        txtChoiceValueParent.SetActive(true);
         txtChoiceValue.text = "Βαρύς";
         mpm.isMegarwnH64 = false;
         mpm.isMegarwnH65 = false;
@@ -453,6 +459,7 @@ public class WindManager : MonoBehaviour
         if (mpm.pnlExtraMenu.activeSelf) mpm.CloseMenuPanel();
         mpm.pnlBottom.SetActive(true);
         pnlChooseType.SetActive(false);
+        txtChoiceValueParent.SetActive(true);
         txtChoiceValue.text = "Οξύς";
         mpm.isMegarwnL64 = false;
         mpm.isMegarwnL65 = false;
@@ -641,6 +648,7 @@ public class WindManager : MonoBehaviour
             }
 
             Debug.Log("here");
+            mpm.btn3DScene.gameObject.SetActive(false);
         }
         else if (togglesChangedInput[1].isOn)
         {
@@ -679,6 +687,7 @@ public class WindManager : MonoBehaviour
                 distanceInputs[i + 8].gameObject.SetActive(false);
             }
             Debug.Log("here second");
+            mpm.btn3DScene.gameObject.SetActive(false);
         }
         else if (togglesChangedInput[2].isOn)
         {
@@ -717,139 +726,17 @@ public class WindManager : MonoBehaviour
                 distanceInputs[i].gameObject.SetActive(false);
             }
             Debug.Log("here third");
+            mpm.btn3DScene.gameObject.SetActive(false);
         }
 
         RemoveEffect();
 
         // }
         mpm.btnChangeValue.gameObject.SetActive(true);
-
+        foreach (GameObject goSounds in btnSounds) goSounds.SetActive(true);
     }
 
     //check the dropdowns and which pairs can have an audio for all wind instruments
-    /*public bool OptionValue()
-    {
-        int mouthPieceValue = dropdownMouthpiece.value;
-        int boreValue = dropdownBore.value;
-        if (mouthPieceValue == 0 && boreValue == 0)
-        {
-            Debug.Log("Option Value");
-            ShowHoleExtraValues();
-            
-
-            btnHolesChange.interactable = true;
-            return true;
-        }
-        else if (mouthPieceValue == 0 && boreValue == 1)
-        {
-            if (mpm.isDafnis && !mpm.isMegarwnH64 && !mpm.isMegarwnL64 && !mpm.isMegarwnL65 && !mpm.isMegarwnH65)
-                OpenValues(57);
-            else if (!mpm.isDafnis && mpm.isMegarwnH64 && !mpm.isMegarwnL64 && !mpm.isMegarwnL65 && !mpm.isMegarwnH65)
-                OpenValues(1121);
-            else if (!mpm.isDafnis && !mpm.isMegarwnH64 && mpm.isMegarwnL64 && !mpm.isMegarwnL65 && !mpm.isMegarwnH65)
-                OpenValues(585);
-            else if (!mpm.isDafnis && !mpm.isMegarwnH64 && !mpm.isMegarwnL64 && mpm.isMegarwnL65 && !mpm.isMegarwnH65)
-                OpenValues(2309);
-            else if (!mpm.isDafnis && !mpm.isMegarwnH64 && !mpm.isMegarwnL64 && !mpm.isMegarwnL65 && mpm.isMegarwnH65)
-                OpenValues(1737);
-
-            btnHolesChange.interactable = false;
-            CloseListOfGameObjects();
-
-            return true;
-        }
-        else if (mouthPieceValue == 0 && boreValue == 2)
-        {
-            if (mpm.isDafnis && !mpm.isMegarwnH64 && !mpm.isMegarwnL64 && !mpm.isMegarwnL65 && !mpm.isMegarwnH65)
-                OpenValues(1);
-            else if (!mpm.isDafnis && mpm.isMegarwnH64 && !mpm.isMegarwnL64 && !mpm.isMegarwnL65 && !mpm.isMegarwnH65)
-                OpenValues(1153);
-            else if (!mpm.isDafnis && !mpm.isMegarwnH64 && mpm.isMegarwnL64 && !mpm.isMegarwnL65 && !mpm.isMegarwnH65)
-                OpenValues(549);
-            else if (!mpm.isDafnis && !mpm.isMegarwnH64 && !mpm.isMegarwnL64 && mpm.isMegarwnL65 && !mpm.isMegarwnH65)
-                OpenValues(2341);
-            else if (!mpm.isDafnis && !mpm.isMegarwnH64 && !mpm.isMegarwnL64 && !mpm.isMegarwnL65 && mpm.isMegarwnH65)
-                OpenValues(1701);
-
-            btnHolesChange.interactable = false;
-            CloseListOfGameObjects();
-            return true;
-        }
-        else if (mouthPieceValue == 0 && boreValue == 3)
-        {
-            if (mpm.isDafnis && !mpm.isMegarwnH64 && !mpm.isMegarwnL64 && !mpm.isMegarwnL65 && !mpm.isMegarwnH65)
-                OpenValues(29);
-            else if (!mpm.isDafnis && mpm.isMegarwnH64 && !mpm.isMegarwnL64 && !mpm.isMegarwnL65 && !mpm.isMegarwnH65)
-                OpenValues(1185);
-            else if (!mpm.isDafnis && !mpm.isMegarwnH64 && mpm.isMegarwnL64 && !mpm.isMegarwnL65 && !mpm.isMegarwnH65)
-                OpenValues(513);
-            else if (!mpm.isDafnis && !mpm.isMegarwnH64 && !mpm.isMegarwnL64 && mpm.isMegarwnL65 && !mpm.isMegarwnH65)
-                OpenValues(2373);
-            else if (!mpm.isDafnis && !mpm.isMegarwnH64 && !mpm.isMegarwnL64 && !mpm.isMegarwnL65 && mpm.isMegarwnH65)
-                OpenValues(1845);
-
-            btnHolesChange.interactable = false;
-            CloseListOfGameObjects();
-            return true;
-        }
-        else if (boreValue == 0 && mouthPieceValue == 1)
-        {
-            if (mpm.isDafnis && !mpm.isMegarwnH64 && !mpm.isMegarwnL64 && !mpm.isMegarwnL65 && !mpm.isMegarwnH65)
-                OpenValues(365);
-            else if (!mpm.isDafnis && mpm.isMegarwnH64 && !mpm.isMegarwnL64 && !mpm.isMegarwnL65 && !mpm.isMegarwnH65)
-                OpenValues(1281);
-            else if (!mpm.isDafnis && !mpm.isMegarwnH64 && mpm.isMegarwnL64 && !mpm.isMegarwnL65 && !mpm.isMegarwnH65)
-                OpenValues(621);
-            else if (!mpm.isDafnis && !mpm.isMegarwnH64 && !mpm.isMegarwnL64 && mpm.isMegarwnL65 && !mpm.isMegarwnH65)
-                OpenValues(2405);
-            else if (!mpm.isDafnis && !mpm.isMegarwnH64 && !mpm.isMegarwnL64 && !mpm.isMegarwnL65 && mpm.isMegarwnH65)
-                OpenValues(1773);
-
-            btnHolesChange.interactable = false;
-            CloseListOfGameObjects();
-            return true;
-        }
-        else if (boreValue == 0 && mouthPieceValue == 2)
-        {
-            if (mpm.isDafnis && !mpm.isMegarwnH64 && !mpm.isMegarwnL64 && !mpm.isMegarwnL65 && !mpm.isMegarwnH65)
-                OpenValues(253);
-            else if (!mpm.isDafnis && mpm.isMegarwnH64 && !mpm.isMegarwnL64 && !mpm.isMegarwnL65 && !mpm.isMegarwnH65)
-                OpenValues(1217);
-            else if (!mpm.isDafnis && !mpm.isMegarwnH64 && mpm.isMegarwnL64 && !mpm.isMegarwnL65 && !mpm.isMegarwnH65)
-                OpenValues(657);
-            else if (!mpm.isDafnis && !mpm.isMegarwnH64 && !mpm.isMegarwnL64 && mpm.isMegarwnL65 && !mpm.isMegarwnH65)
-                OpenValues(2437);
-            else if (!mpm.isDafnis && !mpm.isMegarwnH64 && !mpm.isMegarwnL64 && !mpm.isMegarwnL65 && mpm.isMegarwnH65)
-                OpenValues(1809);
-
-            btnHolesChange.interactable = false;
-            CloseListOfGameObjects();
-            return true;
-        }
-        else if (boreValue == 0 && mouthPieceValue == 3)
-        {
-            if (mpm.isDafnis && !mpm.isMegarwnH64 && !mpm.isMegarwnL64 && !mpm.isMegarwnL65 && !mpm.isMegarwnH65)
-                OpenValues(141);
-            else if (!mpm.isDafnis && mpm.isMegarwnH64 && !mpm.isMegarwnL64 && !mpm.isMegarwnL65 && !mpm.isMegarwnH65)
-                OpenValues(1249);
-            else if (!mpm.isDafnis && !mpm.isMegarwnH64 && mpm.isMegarwnL64 && !mpm.isMegarwnL65 && !mpm.isMegarwnH65)
-                OpenValues(693);
-            else if (!mpm.isDafnis && !mpm.isMegarwnH64 && !mpm.isMegarwnL64 && mpm.isMegarwnL65 && !mpm.isMegarwnH65)
-                OpenValues(2469);
-            else if (!mpm.isDafnis && !mpm.isMegarwnH64 && !mpm.isMegarwnL64 && !mpm.isMegarwnL65 && mpm.isMegarwnH65)
-                OpenValues(1881);
-
-            btnHolesChange.interactable = false;
-            CloseListOfGameObjects();
-            return true;
-        }
-        else
-        {
-            
-            return false;
-
-        }
-    }*/
     public bool OptionValue()
     {
         int mouthPieceValue = dropdownMouthpiece.value;
@@ -981,6 +868,7 @@ public class WindManager : MonoBehaviour
     //show only values when extra holes selection is on.
     public void ShowHoleExtraValues()
     {
+        
         for (int k = 0; k < grid.Length; k++)
         {
             if (mpm.isDafnis && !mpm.isMegarwnH64 && !mpm.isMegarwnL64 && !mpm.isMegarwnL65 && !mpm.isMegarwnH65)
@@ -1087,7 +975,7 @@ public class WindManager : MonoBehaviour
                 {
                     for (int i = 0; i < inputValueDistanceHole.Length; i++)
                     {
-                        inputValueDistanceHole[i].text = grid[2538 + i][5];
+                        inputValueDistanceHole[i].text = grid[2539 + i][5];
                     }
                 }
                 if (grid[k][0] == grid[2547][0] && grid[k][1] == grid[2547][1] && grid[k][5] != grid[2547][5])
@@ -1101,15 +989,15 @@ public class WindManager : MonoBehaviour
                 {
                     for (int i = 0; i < distanceInputs.Length - 8; i++)
                     {
-                        distanceInputs[i + 7].text = grid[2556 + i][5];
+                        distanceInputs[i + 7].text = grid[2557 + i][5];
                     }
                 }
                 if (grid[k][0] == grid[2277][0] && grid[k][1] == grid[2277][1] && grid[k][5] != grid[2277][5])
                 {
                     for (int i = 0; i < inputValueDistanceHole.Length; i++)
                     {
-                        inputValueDistanceHole[i].text = grid[2277 + i][5];
-                        inputValueDiameterHole[i].text = grid[2277 + i][6];
+                        inputValueDistanceHole[i].text = grid[2278 + i][5];
+                        inputValueDiameterHole[i].text = grid[2278 + i][6];
                     }
                 }
             }
@@ -1152,465 +1040,6 @@ public class WindManager : MonoBehaviour
     }
 
     //on extra hole change values, when a specific toggle is On the text on inputs change colors both to the selected one and the un-selected ones. Also audio is loaded too.
-    /*public void HoleSelection()
-    {
-        if(mpm.isDafnis && !mpm.isMegarwnH64 && !mpm.isMegarwnL64 && !mpm.isMegarwnH65 && !mpm.isMegarwnL65)
-        {
-            if (togglesChangedInput[0].isOn)
-            {
-
-                for (int i = 0; i < inputValueDistanceHole.Length; i++)
-                {
-
-                    foreach (TextMeshProUGUI myText in inputValueDistanceHole[i].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(0, 0, 0, 255);
-                    }
-                }
-                for (int j = 0; j < distanceInputs.Length - 6; j++)
-                {
-                    foreach (TextMeshProUGUI myText in distanceInputs[j].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(159, 159, 159, 255);
-
-                    }
-                }
-                for (int k = 0; k < distanceInputs.Length - 6; k++)
-                {
-                    foreach (TextMeshProUGUI myText in distanceInputs[k + 6].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(159, 159, 159, 255);
-
-                    }
-                }
-                
-            }
-            else if (togglesChangedInput[1].isOn)
-            {
-
-                for (int i = 0; i < distanceInputs.Length - 8; i++)
-                {
-                    foreach (TextMeshProUGUI myText in distanceInputs[i].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(0, 0, 0, 255);
-
-                    }
-                }
-                for (int j = 0; j < distanceInputs.Length - 8; j++)
-                {
-                    foreach (TextMeshProUGUI myText in distanceInputs[j + 8].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(159, 159, 159, 255);
-
-                    }
-                }
-                for (int k = 0; k < inputValueDistanceHole.Length; k++)
-                {
-
-                    foreach (TextMeshProUGUI myText in inputValueDistanceHole[k].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(159, 159, 159, 255);
-                    }
-                }
-                
-            }
-            else if (togglesChangedInput[2].isOn)
-            {
-                for (int i = 0; i < distanceInputs.Length - 8; i++)
-                {
-                    foreach (TextMeshProUGUI myText in distanceInputs[i + 8].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(0, 0, 0, 255);
-
-                    }
-                }
-                for (int j = 0; j < inputValueDistanceHole.Length; j++)
-                {
-
-                    foreach (TextMeshProUGUI myText in inputValueDistanceHole[j].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(159, 159, 159, 255);
-                    }
-                }
-                for (int k = 0; k < distanceInputs.Length - 8; k++)
-                {
-                    foreach (TextMeshProUGUI myText in distanceInputs[k].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(159, 159, 159, 255);
-
-                    }
-                }
-                
-            }
-        }
-        else if (!mpm.isDafnis && mpm.isMegarwnH64 && !mpm.isMegarwnL64 && !mpm.isMegarwnH65 && !mpm.isMegarwnL65)
-        {
-            if (togglesChangedInput[0].isOn)
-            {
-
-                for (int i = 0; i < inputValueDistanceHole.Length; i++)
-                {
-
-                    foreach (TextMeshProUGUI myText in inputValueDistanceHole[i].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(0, 0, 0, 255);
-                    }
-                }
-                for (int j = 0; j < distanceInputs.Length - 7; j++)
-                {
-                    foreach (TextMeshProUGUI myText in distanceInputs[j].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(159, 159, 159, 255);
-
-                    }
-                }
-                for (int k = 0; k < distanceInputs.Length - 7; k++)
-                {
-                    foreach (TextMeshProUGUI myText in distanceInputs[k + 7].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(159, 159, 159, 255);
-
-                    }
-                }
-                
-            }
-            else if (togglesChangedInput[1].isOn)
-            {
-
-                for (int i = 0; i < distanceInputs.Length - 8; i++)
-                {
-                    foreach (TextMeshProUGUI myText in distanceInputs[i].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(0, 0, 0, 255);
-
-                    }
-                }
-                for (int j = 0; j < distanceInputs.Length - 8; j++)
-                {
-                    foreach (TextMeshProUGUI myText in distanceInputs[j + 8].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(159, 159, 159, 255);
-
-                    }
-                }
-                for (int k = 0; k < inputValueDistanceHole.Length; k++)
-                {
-
-                    foreach (TextMeshProUGUI myText in inputValueDistanceHole[k].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(159, 159, 159, 255);
-                    }
-                }
-                
-            }
-            else if (togglesChangedInput[2].isOn)
-            {
-                for (int i = 0; i < distanceInputs.Length - 8; i++)
-                {
-                    foreach (TextMeshProUGUI myText in distanceInputs[i + 8].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(0, 0, 0, 255);
-
-                    }
-                }
-                for (int j = 0; j < inputValueDistanceHole.Length; j++)
-                {
-
-                    foreach (TextMeshProUGUI myText in inputValueDistanceHole[j].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(159, 159, 159, 255);
-                    }
-                }
-                for (int k = 0; k < distanceInputs.Length - 8; k++)
-                {
-                    foreach (TextMeshProUGUI myText in distanceInputs[k].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(159, 159, 159, 255);
-
-                    }
-                }
-                
-            }
-        }
-        else if (!mpm.isDafnis && !mpm.isMegarwnH64 && mpm.isMegarwnL64 && !mpm.isMegarwnH65 && !mpm.isMegarwnL65)
-        {
-            if (togglesChangedInput[0].isOn)
-            {
-
-                for (int i = 0; i < inputValueDistanceHole.Length; i++)
-                {
-
-                    foreach (TextMeshProUGUI myText in inputValueDistanceHole[i].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(0, 0, 0, 255);
-                    }
-                }
-                for (int j = 0; j < distanceInputs.Length - 8; j++)
-                {
-                    foreach (TextMeshProUGUI myText in distanceInputs[j].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(159, 159, 159, 255);
-
-                    }
-                }
-                for (int k = 0; k < distanceInputs.Length - 8; k++)
-                {
-                    foreach (TextMeshProUGUI myText in distanceInputs[k + 8].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(159, 159, 159, 255);
-
-                    }
-                }
-                
-            }
-            else if (togglesChangedInput[1].isOn)
-            {
-
-                for (int i = 0; i < distanceInputs.Length - 8; i++)
-                {
-                    foreach (TextMeshProUGUI myText in distanceInputs[i].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(0, 0, 0, 255);
-
-                    }
-                    Debug.Log("I value: " + i);
-                }
-                for (int j = 0; j < distanceInputs.Length - 8; j++)
-                {
-                    foreach (TextMeshProUGUI myText in distanceInputs[j + 8].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(159, 159, 159, 255);
-
-                    }
-                }
-                for (int k = 0; k < inputValueDistanceHole.Length; k++)
-                {
-
-                    foreach (TextMeshProUGUI myText in inputValueDistanceHole[k].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(159, 159, 159, 255);
-                    }
-                }
-                
-            }
-            else if (togglesChangedInput[2].isOn)
-            {
-                //Debug.Log("Is it On: " + togglesChangedInput[2].isOn);
-                for (int i = 0; i < distanceInputs.Length - 8; i++)
-                {
-                    foreach (TextMeshProUGUI myText in distanceInputs[i + 8].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(0, 0, 0, 255);
-
-                    }
-                    Debug.Log("I value: " + i);
-                }
-                for (int j = 0; j < inputValueDistanceHole.Length; j++)
-                {
-
-                    foreach (TextMeshProUGUI myText in inputValueDistanceHole[j].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(159, 159, 159, 255);
-                    }
-                }
-                for (int k = 0; k < distanceInputs.Length - 8; k++)
-                {
-                    foreach (TextMeshProUGUI myText in distanceInputs[k].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(159, 159, 159, 255);
-
-                    }
-                }
-                
-            }
-        }
-        else if (!mpm.isDafnis && !mpm.isMegarwnH64 && !mpm.isMegarwnL64 && mpm.isMegarwnH65 && !mpm.isMegarwnL65)
-        {
-            if (togglesChangedInput[0].isOn)
-            {
-
-                for (int i = 0; i < inputValueDistanceHole.Length; i++)
-                {
-
-                    foreach (TextMeshProUGUI myText in inputValueDistanceHole[i].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(0, 0, 0, 255);
-                    }
-                }
-                for (int j = 0; j < distanceInputs.Length - 8; j++)
-                {
-                    foreach (TextMeshProUGUI myText in distanceInputs[j].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(159, 159, 159, 255);
-
-                    }
-                }
-                for (int k = 0; k < distanceInputs.Length - 8; k++)
-                {
-                    foreach (TextMeshProUGUI myText in distanceInputs[k + 8].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(159, 159, 159, 255);
-
-                    }
-                }
-                
-            }
-            else if (togglesChangedInput[1].isOn)
-            {
-
-                for (int i = 0; i < distanceInputs.Length - 8; i++)
-                {
-                    foreach (TextMeshProUGUI myText in distanceInputs[i].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(0, 0, 0, 255);
-
-                    }
-                    Debug.Log("I value: " + i);
-                }
-                for (int j = 0; j < distanceInputs.Length - 8; j++)
-                {
-                    foreach (TextMeshProUGUI myText in distanceInputs[j + 8].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(159, 159, 159, 255);
-
-                    }
-                }
-                for (int k = 0; k < inputValueDistanceHole.Length; k++)
-                {
-
-                    foreach (TextMeshProUGUI myText in inputValueDistanceHole[k].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(159, 159, 159, 255);
-                    }
-                }
-                
-            }
-            else if (togglesChangedInput[2].isOn)
-            {
-                //Debug.Log("Is it On: " + togglesChangedInput[2].isOn);
-                for (int i = 0; i < distanceInputs.Length - 8; i++)
-                {
-                    foreach (TextMeshProUGUI myText in distanceInputs[i + 8].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(0, 0, 0, 255);
-
-                    }
-                    Debug.Log("I value: " + i);
-                }
-                for (int j = 0; j < inputValueDistanceHole.Length; j++)
-                {
-
-                    foreach (TextMeshProUGUI myText in inputValueDistanceHole[j].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(159, 159, 159, 255);
-                    }
-                }
-                for (int k = 0; k < distanceInputs.Length - 8; k++)
-                {
-                    foreach (TextMeshProUGUI myText in distanceInputs[k].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(159, 159, 159, 255);
-
-                    }
-                }
-                
-            }
-        }
-        else if (!mpm.isDafnis && !mpm.isMegarwnH64 && !mpm.isMegarwnL64 && !mpm.isMegarwnH65 && mpm.isMegarwnL65)
-        {
-            if (togglesChangedInput[0].isOn)
-            {
-
-                for (int i = 0; i < inputValueDistanceHole.Length; i++)
-                {
-
-                    foreach (TextMeshProUGUI myText in inputValueDistanceHole[i].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(0, 0, 0, 255);
-                    }
-                }
-                for (int j = 0; j < distanceInputs.Length - 7; j++)
-                {
-                    foreach (TextMeshProUGUI myText in distanceInputs[j].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(159, 159, 159, 255);
-
-                    }
-                }
-                for (int k = 0; k < distanceInputs.Length - 7; k++)
-                {
-                    foreach (TextMeshProUGUI myText in distanceInputs[k + 7].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(159, 159, 159, 255);
-
-                    }
-                }
-                
-            }
-            else if (togglesChangedInput[1].isOn)
-            {
-
-                for (int i = 0; i < distanceInputs.Length - 8; i++)
-                {
-                    foreach (TextMeshProUGUI myText in distanceInputs[i].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(0, 0, 0, 255);
-
-                    }
-                }
-                for (int j = 0; j < distanceInputs.Length - 8; j++)
-                {
-                    foreach (TextMeshProUGUI myText in distanceInputs[j + 8].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(159, 159, 159, 255);
-
-                    }
-                }
-                for (int k = 0; k < inputValueDistanceHole.Length; k++)
-                {
-
-                    foreach (TextMeshProUGUI myText in inputValueDistanceHole[k].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(159, 159, 159, 255);
-                    }
-                }
-                
-            }
-            else if (togglesChangedInput[2].isOn)
-            {
-                for (int i = 0; i < distanceInputs.Length - 8; i++)
-                {
-                    foreach (TextMeshProUGUI myText in distanceInputs[i + 8].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(0, 0, 0, 255);
-
-                    }
-                }
-                for (int j = 0; j < inputValueDistanceHole.Length; j++)
-                {
-
-                    foreach (TextMeshProUGUI myText in inputValueDistanceHole[j].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(159, 159, 159, 255);
-                    }
-                }
-                for (int k = 0; k < distanceInputs.Length - 8; k++)
-                {
-                    foreach (TextMeshProUGUI myText in distanceInputs[k].GetComponentsInChildren<TextMeshProUGUI>())
-                    {
-                        myText.color = new Color32(159, 159, 159, 255);
-
-                    }
-                }
-                
-            }
-        }
-        else
-        {
-            RemoveEffect();
-        }
-
-    }*/
     public void HoleSelection()
     {
         if (mpm.isDafnis && !mpm.isMegarwnH64 && !mpm.isMegarwnL64 && !mpm.isMegarwnH65 && !mpm.isMegarwnL65)
@@ -2126,8 +1555,9 @@ public class WindManager : MonoBehaviour
         dropdownMouthpiece.ClearOptions();
 
         txtChoiceValue.text = "[Καταχωρήστε τιμή]";
-        txtBoreValueParent.gameObject.SetActive(false);
-        txtMouthpieceValueParent.gameObject.SetActive(false);
+        txtBoreValueParent.SetActive(false);
+        txtMouthpieceValueParent.SetActive(false);
+        txtChoiceValueParent.SetActive(false);
 
         pnlChooseType.SetActive(true);
        

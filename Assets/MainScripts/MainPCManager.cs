@@ -214,7 +214,7 @@ public class MainPCManager : MonoBehaviour
         btnCloseWind.onClick.AddListener(ClosePanels);
         btnCloseString.onClick.AddListener(ClosePanels);
         btnCloseVideo.onClick.AddListener(ClosePanels);
-        btnClosePnlVideo.onClick.AddListener(ClosePanels);
+        btnClosePnlVideo.onClick.AddListener(CloseVideo);
 
         btnMuseumPiraeus.onClick.AddListener(OpenPanelPiraeus);
         btnMuseumMegara.onClick.AddListener(OpenPanelMegara);
@@ -462,7 +462,8 @@ public class MainPCManager : MonoBehaviour
 
                 btnExtraMenu.gameObject.SetActive(true);
                 separate.SetActive(true);
-                btnBackToMain.gameObject.SetActive(false);
+                btnBackToMain.gameObject.SetActive(true);
+
             }
 
             Debug.Log("6");
@@ -559,12 +560,9 @@ public class MainPCManager : MonoBehaviour
         {
             pnlMainRawVideo.SetActive(false);
             if (videoPlayer.isPlaying || videoPlayer.isPaused) videoPlayer.Stop();
+            pnlExtraInfo.SetActive(true);
         }
-        if (pnlExtraInfo.activeSelf)
-        {
-            pnlExtraInfo.SetActive(false);
-            //pnlMainWindInstrument.SetActive(true);
-        }
+        
         if (sm.pnlChangeValuesScreen.activeSelf)
         {
             sm.pnlChangeValuesScreen.SetActive(false);
@@ -577,7 +575,16 @@ public class MainPCManager : MonoBehaviour
 
 
     }
-
+    
+    //we use it in order to close the video panel. Is not on the main close panels method since when we click all the panels are closing
+    public void CloseVideo()
+    {
+        if (pnlExtraInfo.activeSelf)
+        {
+            pnlExtraInfo.SetActive(false);
+            //pnlMainWindInstrument.SetActive(true);
+        }
+    }
     void BackToMainScene()
     {
         if (pnlMainWindInstrument.activeSelf)
