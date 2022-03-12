@@ -392,7 +392,7 @@ public class WindManager : MonoBehaviour
         txtChoiceValue.text = "Βαρύς";
         mpm.isMegarwnH64 = false;
         mpm.isMegarwnH65 = false;
-        
+        mpm.imgContainerWindIstrument.gameObject.SetActive(true);
 
         if (mpm.isMegarwnL64 && !mpm.isMegarwnL65 && !mpm.isMegarwnH64 && !mpm.isMegarwnH65 && !mpm.isDafnis)
         {
@@ -412,6 +412,8 @@ public class WindManager : MonoBehaviour
             mpm.imgHoleExplain.SetActive(true);
             LoadDropDowns();
 
+            mpm.imgContainerWindIstrument.GetComponent<Image>().sprite = mpm.imgWindMegarwn64L;
+
             mpm.btn3DScene.gameObject.SetActive(true);
             OpenClose3DIns(false, false, true, false, false);
             mpm.btn3DScene.onClick.AddListener(() => Load3DIns(mpm.windInsMeg64L3D));
@@ -422,19 +424,21 @@ public class WindManager : MonoBehaviour
             OpenValues(2277);
             for (int i = 0; i < inputValueDiameterHole.Length; i++)
             {
-                inputValueDiameterHole[i].gameObject.SetActive(false);
-                inputValueDiameterHole[i].transform.parent.gameObject.SetActive(false);
+                inputValueDiameterHole[i].gameObject.SetActive(true);
+                inputValueDiameterHole[i].transform.parent.gameObject.SetActive(true);
 
             }
             for (int j = 0; j < inputValueDistanceHole.Length; j++)
             {
-                inputValueDistanceHole[j].gameObject.SetActive(false);
+                inputValueDistanceHole[j].gameObject.SetActive(true);
             }
             mpm.imgDafnis.SetActive(false);
             mpm.imgMegarwnH.SetActive(false);
             mpm.imgMegarwnL.SetActive(true);
             mpm.imgHoleExplain.SetActive(true);
             LoadDropDowns();
+
+            mpm.imgContainerWindIstrument.GetComponent<Image>().sprite = mpm.imgWindMegarwn65L;
 
             mpm.btn3DScene.gameObject.SetActive(true);
             OpenClose3DIns(false, false, false, false, true);
@@ -452,7 +456,9 @@ public class WindManager : MonoBehaviour
         txtChoiceValue.text = "Οξύς";
         mpm.isMegarwnL64 = false;
         mpm.isMegarwnL65 = false;
-        
+        mpm.imgContainerWindIstrument.gameObject.SetActive(true);
+
+
         if (mpm.isDafnis && !mpm.isMegarwnL64 && !mpm.isMegarwnH64 && !mpm.isMegarwnL65 && !mpm.isMegarwnH65)
         {
             OpenValues(85);
@@ -473,6 +479,8 @@ public class WindManager : MonoBehaviour
             mpm.imgMegarwnL.SetActive(false);
             mpm.imgHoleExplain.SetActive(true);
             LoadDropDowns();
+
+            mpm.imgContainerWindIstrument.GetComponent<Image>().sprite = mpm.imgWindDafnis;
 
             mpm.btn3DScene.gameObject.SetActive(true);
             OpenClose3DIns(true, false, false, false, false);
@@ -498,6 +506,8 @@ public class WindManager : MonoBehaviour
             mpm.imgHoleExplain.SetActive(true);
             LoadDropDowns();
 
+            mpm.imgContainerWindIstrument.GetComponent<Image>().sprite = mpm.imgWindMegarwn64H;
+
             mpm.btn3DScene.gameObject.SetActive(true);
             OpenClose3DIns(false, true, false, false, false);
             mpm.btn3DScene.onClick.AddListener(() => Load3DIns(mpm.windInsMeg64H3D));
@@ -520,6 +530,8 @@ public class WindManager : MonoBehaviour
             mpm.imgMegarwnL.SetActive(true);
             mpm.imgHoleExplain.SetActive(true);
             LoadDropDowns();
+
+            mpm.imgContainerWindIstrument.GetComponent<Image>().sprite = mpm.imgWindMegarwn65H;
 
             mpm.btn3DScene.gameObject.SetActive(true);
             OpenClose3DIns(false, false, false, true, false);
@@ -2126,6 +2138,9 @@ public class WindManager : MonoBehaviour
         mpm.imgMegarwnH.SetActive(false);
         mpm.imgMegarwnL.SetActive(false);
         mpm.imgHoleExplain.SetActive(false);
+
+        mpm.imgContainerWindIstrument.gameObject.SetActive(false);
+
         //reset booleans here
         if (mpm.isPiraeus &&!mpm.isMegara)
         {

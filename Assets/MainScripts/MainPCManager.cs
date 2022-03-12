@@ -110,6 +110,7 @@ public class MainPCManager : MonoBehaviour
     public GameObject[] textureVideos;
     public GameObject pnlMainRawVideo;
     public Button btnCloseVideo;
+    public Button btnClosePnlVideo;
     public Slider slVideo;
     public DatabaseAudio myAudio;//for audio
     public ButtonLevel buttonLevel;//to load levels, close application etc.
@@ -172,6 +173,8 @@ public class MainPCManager : MonoBehaviour
         LyraIns3D.SetActive(false);
         pnlBottom.SetActive(false);
 
+        imgContainerWindIstrument.SetActive(false);
+
         imgContainerExtraInfo.SetActive(false);
         LoadInstrumentFiles("Instruments/");
 
@@ -206,11 +209,12 @@ public class MainPCManager : MonoBehaviour
         btnPrevious.onClick.AddListener(BackPanels);
         btnHelp.onClick.AddListener(OpenHelpPanel);
 
-        btnBackToMain.onClick.AddListener(ClosePanels);
+        btnBackToMain.onClick.AddListener(BackToMainScene);
 
         btnCloseWind.onClick.AddListener(ClosePanels);
         btnCloseString.onClick.AddListener(ClosePanels);
         btnCloseVideo.onClick.AddListener(ClosePanels);
+        btnClosePnlVideo.onClick.AddListener(ClosePanels);
 
         btnMuseumPiraeus.onClick.AddListener(OpenPanelPiraeus);
         btnMuseumMegara.onClick.AddListener(OpenPanelMegara);
@@ -252,9 +256,6 @@ public class MainPCManager : MonoBehaviour
             txtInstrument.gameObject.SetActive(true);
             txtInstrument.text = "> " + btnAulosDafnis.GetComponentInChildren<TextMeshProUGUI>().text;
             wm.btnBarrytone.interactable = false;
-            
-            imgContainerWindIstrument.GetComponent<Image>().sprite = imgWindDafnis;
-
 
             LoadClips("dafnis/");
 
@@ -265,8 +266,6 @@ public class MainPCManager : MonoBehaviour
             txtInstrument.text = "> " + btnAulosMegara64.GetComponentInChildren<TextMeshProUGUI>().text;
             wm.btnBarrytone.interactable = true;
 
-            imgContainerWindIstrument.GetComponent<Image>().sprite = imgWindMegarwn64H;
-
             LoadClips("megarwnH64/");
 
         }
@@ -276,8 +275,6 @@ public class MainPCManager : MonoBehaviour
             txtInstrument.text = "> " + btnAulosMegara65.GetComponentInChildren<TextMeshProUGUI>().text;
             wm.btnBarrytone.interactable = true;
             
-            imgContainerWindIstrument.GetComponent<Image>().sprite = imgWindMegarwn65H;
-
         }
 
         btnSubmit.onClick.AddListener(wm.OnSubmit);
@@ -337,7 +334,7 @@ public class MainPCManager : MonoBehaviour
 
             LoadClips("Trigonon/");
 
-imgContainerStringInstrument.GetComponent<Image>().sprite = imgTrigono;
+            imgContainerStringInstrument.GetComponent<Image>().sprite = imgTrigono;
 
 
         }
@@ -353,7 +350,7 @@ imgContainerStringInstrument.GetComponent<Image>().sprite = imgTrigono;
 
             LoadClips("Helys/");
 
-imgContainerStringInstrument.GetComponent<Image>().sprite = imgHelys;
+            imgContainerStringInstrument.GetComponent<Image>().sprite = imgHelys;
 
 
         }
@@ -563,12 +560,26 @@ imgContainerStringInstrument.GetComponent<Image>().sprite = imgHelys;
             pnlMainRawVideo.SetActive(false);
             if (videoPlayer.isPlaying || videoPlayer.isPaused) videoPlayer.Stop();
         }
-
+        if (pnlExtraInfo.activeSelf)
+        {
+            pnlExtraInfo.SetActive(false);
+            //pnlMainWindInstrument.SetActive(true);
+        }
         if (sm.pnlChangeValuesScreen.activeSelf)
         {
             sm.pnlChangeValuesScreen.SetActive(false);
             pnlBottom.SetActive(true);
         }
+
+
+        if (pnlHelp.activeSelf) CloseHelpPanel();
+        if (pnlExtraMenu.activeSelf) CloseMenuPanel();
+
+
+    }
+
+    void BackToMainScene()
+    {
         if (pnlMainWindInstrument.activeSelf)
         {
             pnlMainWindInstrument.SetActive(false);
@@ -660,12 +671,6 @@ imgContainerStringInstrument.GetComponent<Image>().sprite = imgHelys;
 
             Debug.Log("7");
         }
-
-
-        if (pnlHelp.activeSelf) CloseHelpPanel();
-        if (pnlExtraMenu.activeSelf) CloseMenuPanel();
-
-
     }
     //if user won;t choose high or low, a warning appears in order to load the default values for each instrument
     public void WarningOnFirstChoice()
